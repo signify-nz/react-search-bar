@@ -36,8 +36,8 @@ class SearchBar extends Component {
   }
 
   setFocusedSuggestion(movingDown) {
-    const { suggestions } = this.props;
     const { focusedSuggestion: focused, searchTerm } = this.state;
+    const { suggestions } = this.props;
     const last = suggestions.length - 1;
     let next;
 
@@ -177,7 +177,10 @@ class SearchBar extends Component {
     );
 
     return (
-      <div ref={ref => this.container = ref}>
+      <div
+        className={styles.wrapper}
+        ref={ref => this.container = ref}
+      >
         <div
           className={classNames({
             [styles.field]: true,
