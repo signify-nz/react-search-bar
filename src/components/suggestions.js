@@ -33,7 +33,7 @@ class Suggestions extends Component {
   onMouseMove(event, index) {
     const { movementX, movementY } = event.nativeEvent;
 
-    if (movementX !== 0 || movementY !== 0) {
+    if (movementX || movementY) {
       this.props.onSuggestionHover(index);
     }
   }
