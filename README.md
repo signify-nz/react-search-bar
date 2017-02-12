@@ -1,4 +1,4 @@
-### NOTE: This library is no longer under active development. Do with it as you will. If you're looking for an alternative, please use the excellent [react-autosuggest](https://github.com/moroshko/react-autosuggest) instead.
+__NOTE: This library is no longer under active development. Do with it as you will. If you're looking for an alternative, please use the excellent WAI-ARIA compliant [react-autosuggest](https://github.com/moroshko/react-autosuggest) instead.__
 
 A general-purpose search bar, built in React. View the [demo](https://vakhtang.github.io/react-search-bar).
 
@@ -22,7 +22,7 @@ npm run check
 | renderSearchButton  | _boolean_         |          | Flag indicating whether to display the search button |
 | style               | _object_          |          | Style object |
 | suggestionRenderer  | _function_        |          | Function to custom render suggestions |
-| suggestions         | _array\<string>_  |    ✓     | Array of suggestions in string format |
+| suggestions         | _array\<string>_  |    ✓     | Flat array of suggestions |
 
 Also accepts [supported HTML attributes](https://facebook.github.io/react/docs/dom-elements.html#all-supported-html-attributes) for the `<input>` element.
 
