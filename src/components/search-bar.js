@@ -54,6 +54,8 @@ class SearchBar extends Component {
   }
 
   clearSearch() {
+    this.props.onChange();
+
     this.setState({
       focusedSuggestion: -1,
       searchTerm: '',
