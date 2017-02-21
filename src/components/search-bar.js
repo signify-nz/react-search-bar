@@ -65,7 +65,7 @@ class SearchBar extends Component {
 
   toggleFocus() {
     this.setState({
-      focused: !this.state.focused,
+      isFocused: !this.state.isFocused,
       collapseSuggestions: false
     });
   }
@@ -127,8 +127,8 @@ class SearchBar extends Component {
 
   handleSelection(suggestion) {
     this.setState({
+      collapseSuggestions: true,
       focusedSuggestion: -1,
-      focused: false,
       value: suggestion
     });
 
