@@ -114,9 +114,18 @@ class SearchBar extends Component {
         break;
 
       case 'Escape':
-        this.input.blur();
+        this.handleEscape();
         break;
     }
+  }
+
+  handleEscape() {
+    this.input.blur();
+    
+    this.setState({
+      collapseSuggestions: true,
+      focusedSuggestion: -1
+    });
   }
 
   handleHover(index) {
