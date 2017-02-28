@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import autoBind from 'react-autobind';
 import SearchBar from '../src';
 import styles from './demo.css';
-import countries from './countries.json';
+import words from './words.json';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,58 +16,54 @@ class App extends React.Component {
     autoBind(this);
   }
 
-  handleChange(input) {
-    if (!input) {
-      this.setState({
-        suggestions: []
-      });
-
-      return;
-    }
-
+  handleClear() {
     this.setState({
-      suggestions: countries
-        .map(country => country.capital)
-        .filter(capital => capital.toLowerCase().startsWith(input) && capital)
-        .sort()
+      suggestions: []
+    });
+  }
+
+  handleChange(input) {
+    this.setState({
+      suggestions: words.filter(word => word.startsWith(input) && word)
     });
   }
 
   handleSelection(value) {
-    this.setState({
-      suggestions: []
-    });
-
     if (value) {
       console.info(`Selected "${value}"`);
     }
   }
 
   handleSearch(value) {
-    this.setState({
-      suggestions: []
-    });
-
     if (value) {
       console.info(`Searching "${value}"`);
     }
   }
 
+  suggestionRenderer(suggestion, searchTerm) {
+    return (
+      <span>
+        <span>{searchTerm}</span>
+        <strong>{suggestion.substr(searchTerm.length)}</strong>
+      </span>
+    );
+  }
+
   render() {
     return (
-      <div>
-        <SearchBar
-          autoFocus
-          renderClearButton
-          renderSearchButton
-          placeholder="search a national capital"
-          onChange={this.handleChange}
-          onSelection={this.handleSelection}
-          onSearch={this.handleSearch}
-          suggestions={this.state.suggestions}
-          styles={styles}
-        />
-      </div>
+      <SearchBar
+        autoFocus
+        renderClearButton
+        renderSearchButton
+        placeholder="select an SAT word"
+        onChange={this.handleChange}
+        onClear={this.handleClear}
+        onSelection={this.handleSelection}
+        onSearch={this.handleSearch}
+        suggestions={this.state.suggestions}
+        suggestionRenderer={this.suggestionRenderer}
+        styles={styles}
+      />
     );
   }
 }

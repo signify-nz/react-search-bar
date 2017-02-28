@@ -18,9 +18,14 @@ describe('<SearchBar />', () => {
       expect(() => shallow(<SearchBar />)).to.throw();
     });
 
-    it('suggestions', () => {
+    it('onClear', () => {
       expect(() => shallow(<SearchBar onChange={noop} />)).to.throw();
     });
+
+    it('suggestions', () => {
+      expect(() => shallow(<SearchBar onChange={noop} onClear={noop} />)).to.throw();
+    });
+
   });
 
   it('should render suggestions', () => {
@@ -29,6 +34,7 @@ describe('<SearchBar />', () => {
     const wrapper = shallow(
       <SearchBar
         onChange={noop}
+        onClear={noop}
         suggestions={suggestions}
       />
     );

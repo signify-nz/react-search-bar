@@ -15,9 +15,10 @@ npm run check
 | :-----------------  | :---------------- | :------: | :---------- |
 | autoFocus           | _boolean_         |          | If `true`, focuses the input when the component loads |
 | delay               | _number_          |          | The number of milliseconds to wait after the last key stroke before calling `onChange` |
-| onChange            | _function_        |    ✓     | Callback that executes on input change |
-| onSearch            | _function_        |          | Callback that executes when clicking the search button or enter (presumes that search button is available) |
-| onSelection         | _function_        |          | Callback that executes when selecting a suggestion |
+| onChange            | _function_        |    ✓     | Called when input changes |
+| onClear             | _function_        |    ✓     | Called when suggestions should be cleared |
+| onSearch            | _function_        |          | Called when clicking the search button or enter (presumes that search button is available) |
+| onSelection         | _function_        |          | Called when selecting a suggestion |
 | renderClearButton   | _boolean_         |          | Flag indicating whether to display the clear button |
 | renderSearchButton  | _boolean_         |          | Flag indicating whether to display the search button |
 | style               | _object_          |          | Style object |

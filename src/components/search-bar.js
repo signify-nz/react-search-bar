@@ -9,11 +9,11 @@ import Suggestions from './suggestions';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    invariant(props.onChange, '\'onChange\' prop is required.');
-    invariant(props.suggestions, '\'suggestions\' prop is required.');
+    ['onChange', 'onClear', 'suggestions'].forEach(method => {
+      invariant(props[method], `${method} prop is required.`);
+    });
 
     this.state = {
-      collapseSuggestions: false,
       focusedSuggestion: -1,
       isFocused: false,
       searchTerm: '',
@@ -54,7 +54,7 @@ class SearchBar extends Component {
   }
 
   clearSearch() {
-    this.props.onChange();
+    this.props.onClear();
 
     this.setState({
       focusedSuggestion: -1,
@@ -65,8 +65,7 @@ class SearchBar extends Component {
 
   toggleFocus() {
     this.setState({
-      isFocused: !this.state.isFocused,
-      collapseSuggestions: false
+      isFocused: !this.state.isFocused
     });
   }
 
@@ -74,9 +73,7 @@ class SearchBar extends Component {
     const node = findDOMNode(this.container);
 
     if (!node.contains(event.target)) {
-      this.setState({
-        collapseSuggestions: true
-      });
+      this.props.onClear();
     }
   }
 
@@ -123,9 +120,11 @@ class SearchBar extends Component {
     this.input.blur();
     
     this.setState({
-      collapseSuggestions: true,
-      focusedSuggestion: -1
+      focusedSuggestion: -1,
+      searchTerm: ''
     });
+
+    this.props.onClear();
   }
 
   handleHover(index) {
@@ -136,10 +135,11 @@ class SearchBar extends Component {
 
   handleSelection(suggestion) {
     this.setState({
-      collapseSuggestions: true,
       focusedSuggestion: -1,
       value: suggestion
     });
+
+    this.props.onClear();
 
     if (this.props.onSelection) {
       this.props.onSelection(suggestion);
@@ -147,6 +147,8 @@ class SearchBar extends Component {
   }
 
   handleSearch() {
+    this.props.onClear();
+
     if (this.props.onSearch) {
       this.props.onSearch(this.state.value.trim());
     }
@@ -182,7 +184,6 @@ class SearchBar extends Component {
     );
 
     const renderSuggestions = (
-      !state.collapseSuggestions &&
       state.value &&
       props.suggestions.length > 0
     );
@@ -235,6 +236,7 @@ SearchBar.propTypes = {
     PropTypes.number,
     PropTypes.string
   ]),
+  onClear: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func,
   onSelection: PropTypes.func,
