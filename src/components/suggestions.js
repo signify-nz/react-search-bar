@@ -63,6 +63,7 @@ class Suggestions extends Component {
             onClick={props.onSelection}
             onMouseMove={this.onMouseMove}
             ref={ref => props.focusedSuggestion === index && (this.focusedSuggestion = ref)}
+            searchTerm={props.searchTerm}
             suggestion={suggestion}
             suggestionRenderer={props.suggestionRenderer}
           />
