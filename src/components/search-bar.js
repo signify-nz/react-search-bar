@@ -10,8 +10,8 @@ import Suggestions from './suggestions';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    ['onChange', 'onClear', 'suggestions'].forEach(method => {
-      invariant(props[method], `${method} prop is required.`);
+    ['onChange', 'onClear', 'suggestions'].forEach(prop => {
+      invariant(props[prop], `${prop} prop is required.`);
     });
 
     this.state = {
