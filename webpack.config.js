@@ -31,7 +31,6 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, './demo'),
-    hot: true,
     noInfo: true
   },
   devtool: 'source-map'
