@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import autoBind from 'react-autobind';
 import classNames from 'classnames';
 import invariant from 'invariant';
+import debounce from 'lodash.debounce';
 import omit from 'lodash.omit';
 import Suggestions from './suggestions';
 
@@ -21,6 +22,11 @@ class SearchBar extends Component {
     };
 
     autoBind(this);
+
+    this.onChange = debounce(
+      searchTerm => props.onChange(searchTerm), 
+      props.onChange
+    );
   }
 
   componentDidMount() {
@@ -78,7 +84,6 @@ class SearchBar extends Component {
   }
 
   handleChange(event) {
-    clearTimeout(this.timer);
     const { value } = event.target;
     const searchTerm = value.toLowerCase().trim();
 
@@ -92,10 +97,7 @@ class SearchBar extends Component {
       value
     });
 
-    this.timer = setTimeout(
-      () => this.props.onChange(searchTerm),
-      this.props.delay
-    );
+    this.onChange(searchTerm);
   }
 
   handleKeyDown(event) {
@@ -174,10 +176,9 @@ class SearchBar extends Component {
 
   render() {
     const { props, state } = this;
-    const { styles } = props;
+    const { renderSearchButton, styles } = props;
     const attributes = omit(props, Object.keys(SearchBar.propTypes));
 
-    const { renderSearchButton } = props;
     const renderClearButton = (
       state.value &&
       props.renderClearButton
