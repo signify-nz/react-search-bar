@@ -15,17 +15,32 @@ describe('<SearchBar />', () => {
     });
 
     it('onChange', () => {
+      const component = <SearchBar />;
       expect(() => shallow(<SearchBar />)).to.throw();
     });
 
     it('onClear', () => {
-      expect(() => shallow(<SearchBar onChange={noop} />)).to.throw();
+      const component = <SearchBar onChange={noop} />;
+      expect(() => shallow(component)).to.throw();
     });
 
     it('suggestions', () => {
-      expect(() => shallow(<SearchBar onChange={noop} onClear={noop} />)).to.throw();
+      const component = <SearchBar onChange={noop} onClear={noop} />;
+      expect(() => shallow(component)).to.throw();
     });
 
+    it('onSearch', () => {
+      const component = (
+        <SearchBar 
+          renderSearchButton 
+          onChange={noop} 
+          onClear={noop}
+          suggestions={[]}
+        />
+      );
+
+      expect(() => shallow(component)).to.throw();
+    });
   });
 
   it('should render suggestions', () => {

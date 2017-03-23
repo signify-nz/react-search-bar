@@ -10,9 +10,17 @@ import Suggestions from './suggestions';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+
     ['onChange', 'onClear', 'suggestions'].forEach(prop => {
       invariant(props[prop], `${prop} prop is required.`);
     });
+
+    if (props.renderSearchButton) {
+      invariant(
+        props.onSearch, 
+        'onSearch prop is required when rendering search button'
+      );
+    }
 
     this.state = {
       focusedSuggestion: -1,
@@ -150,10 +158,7 @@ class SearchBar extends Component {
 
   handleSearch() {
     this.props.onClear();
-
-    if (this.props.onSearch) {
-      this.props.onSearch(this.state.value.trim());
-    }
+    this.props.onSearch(this.state.value.trim());
   }
 
   renderClearButton() {
