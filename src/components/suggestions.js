@@ -22,7 +22,7 @@ class Suggestions extends Component {
         listNode.scrollTop = (
           suggestionNode.offsetTop +
           suggestionNode.clientHeight -
-          listNode.offsetHeight
+          listNode.clientHeight
         );
       } else if (suggestionRect.top < listRect.top) {
         listNode.scrollTop = suggestionNode.offsetTop;
