@@ -17,7 +17,7 @@ class SearchBar extends Component {
 
     if (props.renderSearchButton) {
       invariant(
-        props.onSearch, 
+        props.onSearch,
         'onSearch prop is required when rendering search button'
       );
     }
@@ -31,9 +31,9 @@ class SearchBar extends Component {
 
     autoBind(this);
 
-    this.onChange = debounce(
-      searchTerm => props.onChange(searchTerm), 
-      props.onChange
+    this.handleDebouncedChange = debounce(
+      this.handleDebouncedChange,
+      props.delay
     );
   }
 
@@ -91,6 +91,14 @@ class SearchBar extends Component {
     }
   }
 
+  handleDebouncedChange(searchTerm) {
+    this.setState({
+      searchTerm
+    });
+
+    this.props.onChange(searchTerm);
+  }
+
   handleChange(event) {
     const { value } = event.target;
     const searchTerm = value.toLowerCase().trim();
@@ -101,11 +109,10 @@ class SearchBar extends Component {
     }
 
     this.setState({
-      searchTerm,
       value
     });
 
-    this.onChange(searchTerm);
+    this.handleDebouncedChange(searchTerm);
   }
 
   handleKeyDown(event) {
@@ -128,7 +135,7 @@ class SearchBar extends Component {
 
   handleEscape() {
     this.input.blur();
-    
+
     this.setState({
       focusedSuggestion: -1,
       searchTerm: ''
