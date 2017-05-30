@@ -16,7 +16,7 @@ describe('<SearchBar />', () => {
 
     it('onChange', () => {
       const component = <SearchBar />;
-      expect(() => shallow(<SearchBar />)).to.throw();
+      expect(() => shallow(component)).to.throw();
     });
 
     it('onClear', () => {
@@ -29,7 +29,7 @@ describe('<SearchBar />', () => {
       expect(() => shallow(component)).to.throw();
     });
 
-    it('onSearch', () => {
+    it('onSearch when renderSearchButton is true', () => {
       const component = (
         <SearchBar 
           renderSearchButton 
