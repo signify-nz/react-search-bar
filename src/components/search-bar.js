@@ -112,7 +112,9 @@ class SearchBar extends Component {
       value
     });
 
-    this.handleDebouncedChange(searchTerm);
+    if (searchTerm) {
+      this.handleDebouncedChange(searchTerm);
+    }
   }
 
   handleKeyDown(event) {
