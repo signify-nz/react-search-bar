@@ -42,32 +42,37 @@ class Suggestions extends Component {
     this.props.onSuggestionHover(-1);
   }
 
-  render() {
+  renderSuggestion(suggestion, index) {
     const { props } = this;
     const { styles } = props;
+    const isFocused = props.focusedSuggestion === index;
 
     return (
+      <Suggestion
+        className={classNames({
+          [styles.suggestion]: true,
+          [styles.suggestionFocused]: isFocused
+        })}
+        index={index}
+        key={suggestion}
+        onClick={props.onSelection}
+        onMouseMove={this.onMouseMove}
+        ref={ref => isFocused && (this.focusedSuggestion = ref)}
+        searchTerm={props.searchTerm}
+        suggestion={suggestion}
+        suggestionRenderer={props.suggestionRenderer}
+      />
+    );
+  }
+
+  render() {
+    return (
       <ul
-        className={styles.suggestions}
+        className={this.props.styles.suggestions}
         ref={ref => this.list = ref}
         onMouseLeave={this.onMouseLeave}
       >
-        {props.suggestions.map((suggestion, index) => (
-          <Suggestion
-            className={classNames({
-              [styles.suggestion]: true,
-              [styles.suggestionFocused]: props.focusedSuggestion === index
-            })}
-            index={index}
-            key={suggestion}
-            onClick={props.onSelection}
-            onMouseMove={this.onMouseMove}
-            ref={ref => props.focusedSuggestion === index && (this.focusedSuggestion = ref)}
-            searchTerm={props.searchTerm}
-            suggestion={suggestion}
-            suggestionRenderer={props.suggestionRenderer}
-          />
-        ))}
+        {this.props.suggestions.map(this.renderSuggestion)}
       </ul>
     );
   }
