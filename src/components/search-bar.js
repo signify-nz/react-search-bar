@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import autoBind from 'react-autobind';
 import classNames from 'classnames';
-import invariant from 'invariant';
 import debounce from 'lodash.debounce';
 import omit from 'lodash.omit';
 import Suggestions from './suggestions';
@@ -11,15 +10,8 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    ['onChange', 'onClear', 'suggestions'].forEach(prop => {
-      invariant(props[prop], `${prop} prop is required.`);
-    });
-
-    if (props.renderSearchButton) {
-      invariant(
-        props.onSearch,
-        'onSearch prop is required when rendering search button'
-      );
+    if (props.renderSearchButton && !props.onSearch) {
+      throw new Error('onSearch is required when rendering search button');
     }
 
     this.state = {
