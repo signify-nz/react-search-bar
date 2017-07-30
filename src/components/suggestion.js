@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 
-class Suggestion extends Component {
+class Suggestion extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);

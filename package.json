@@ -43,7 +43,9 @@
     "eslint": "^3.15.0",
     "eslint-plugin-react": "^6.9.0",
     "mocha": "^3.2.0",
+    "prop-types": "^15.5.10",
     "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.0",
     "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
@@ -51,15 +53,13 @@
     "webpack-dev-server": "^2.4.1"
   },
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "^15.4.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash.debounce": "^4.0.8",
     "lodash.omit": "^4.5.0",
-    "react": "^15.4.2",
-    "react-autobind": "^1.0.6",
-    "react-dom": "^15.4.2"
+    "react": "^15.4.0",
+    "react-autobind": "^1.0.6"
   }
 }

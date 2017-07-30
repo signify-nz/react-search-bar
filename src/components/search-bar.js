@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
+import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 import omit from 'lodash.omit';
 import Suggestions from './suggestions';
 
-class SearchBar extends Component {
+class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
