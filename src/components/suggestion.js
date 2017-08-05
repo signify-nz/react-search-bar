@@ -35,11 +35,11 @@ class Suggestion extends React.Component {
 
 Suggestion.propTypes = {
   className: PropTypes.string,
-  index: PropTypes.number,
-  onMouseMove: PropTypes.func,
-  onSelection: PropTypes.func,
-  suggestion: PropTypes.string,
-  suggestionRenderer: PropTypes.func
+  index: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onMouseMove: PropTypes.func.isRequired,
+  suggestion: PropTypes.string.isRequired,
+  suggestionRenderer: PropTypes.func.isRequired
 };
 
 export default Suggestion;

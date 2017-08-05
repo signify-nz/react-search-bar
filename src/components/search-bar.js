@@ -126,13 +126,12 @@ class SearchBar extends React.Component {
   }
 
   handleEscape() {
-    this.input.blur();
-
     this.setState({
       focusedSuggestion: -1,
       searchTerm: ''
     });
 
+    this.input.blur();
     this.props.onClear();
   }
 
@@ -241,7 +240,7 @@ SearchBar.propTypes = {
     PropTypes.number,
     PropTypes.string
   ]),
-  onClear: PropTypes.func,
+  onClear: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func,
   onSelection: PropTypes.func,

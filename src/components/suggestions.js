@@ -91,7 +91,7 @@ Suggestions.defaultProps = {
 };
 
 Suggestions.propTypes = {
-  focusedSuggestion: PropTypes.number,
+  focusedSuggestion: PropTypes.number.isRequired,
   onSelection: PropTypes.func.isRequired,
   onSuggestionHover: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired,
