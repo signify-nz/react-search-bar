@@ -16,6 +16,7 @@
   ],
   "rules": {
     "quotes": ["error", "single"],
+    "react/no-array-index-key": "error",
     "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error"
