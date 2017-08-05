@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import autoBind from 'react-autobind';
 import Suggestion from './suggestion';
@@ -13,20 +12,18 @@ class Suggestions extends React.Component {
 
   componentDidUpdate() {
     if (this.focusedSuggestion) {
-      const listNode = findDOMNode(this.list);
-      const suggestionNode = findDOMNode(this.focusedSuggestion);
-
-      const listRect = listNode.getBoundingClientRect();
-      const suggestionRect = suggestionNode.getBoundingClientRect();
+      const { list, focusedSuggestion } = this;
+      const listRect = list.getBoundingClientRect();
+      const suggestionRect = focusedSuggestion.getBoundingClientRect();
 
       if (suggestionRect.bottom > listRect.bottom) {
-        listNode.scrollTop = (
-          suggestionNode.offsetTop +
-          suggestionNode.clientHeight -
-          listNode.clientHeight
+        list.scrollTop = (
+          focusedSuggestion.offsetTop +
+          focusedSuggestion.clientHeight -
+          list.clientHeight
         );
       } else if (suggestionRect.top < listRect.top) {
-        listNode.scrollTop = suggestionNode.offsetTop;
+        list.scrollTop = focusedSuggestion.offsetTop;
       }
     }
   }
@@ -41,6 +38,12 @@ class Suggestions extends React.Component {
 
   onMouseLeave() {
     this.props.onSuggestionHover(-1);
+  }
+
+  setFocusedSuggestion(ref) {
+    if (ref && ref.item) {
+      this.focusedSuggestion = ref.item;
+    }
   }
 
   renderSuggestion(suggestion, index) {
@@ -58,7 +61,7 @@ class Suggestions extends React.Component {
         key={suggestion}
         onClick={props.onSelection}
         onMouseMove={this.onMouseMove}
-        ref={ref => isFocused && (this.focusedSuggestion = ref)}
+        ref={isFocused && this.setFocusedSuggestion}
         searchTerm={props.searchTerm}
         suggestion={suggestion}
         suggestionRenderer={props.suggestionRenderer}

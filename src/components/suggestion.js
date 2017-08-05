@@ -23,6 +23,7 @@ class Suggestion extends React.Component {
       <li
         className={props.className}
         key={props.suggestion}
+        ref={ref => ref && (this.item = ref)}
         onClick={this.handleClick}
         onMouseMove={this.handleMouseMove}
       >

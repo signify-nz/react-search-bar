@@ -1,5 +1,4 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import classNames from 'classnames';
@@ -77,9 +76,7 @@ class SearchBar extends React.Component {
   }
 
   handleClick(event) {
-    const node = findDOMNode(this.container);
-
-    if (!node.contains(event.target)) {
+    if (!this.container.contains(event.target)) {
       this.props.onClear();
     }
   }
