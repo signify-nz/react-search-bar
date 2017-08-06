@@ -60,13 +60,14 @@ class SearchBar extends React.Component {
   }
 
   clearSearch() {
-    this.props.onClear();
-
     this.setState({
       focusedSuggestion: -1,
       searchTerm: '',
       value: ''
     });
+
+    this.input.focus();
+    this.props.onClear();
   }
 
   toggleFocus() {
