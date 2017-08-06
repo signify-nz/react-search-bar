@@ -41,21 +41,18 @@ class Suggestions extends React.Component {
   }
 
   setFocusedSuggestion(ref) {
-    if (ref && ref.item) {
-      this.focusedSuggestion = ref.item;
-    }
+    this.focusedSuggestion = ref && ref.item;
   }
 
   renderSuggestion(suggestion, index) {
     const { props } = this;
-    const { styles } = props;
     const isFocused = props.focusedSuggestion === index;
 
     return (
       <Suggestion
         className={classNames({
-          [styles.suggestion]: true,
-          [styles.suggestionFocused]: isFocused
+          [props.styles.suggestion]: true,
+          [props.styles.suggestionFocused]: isFocused
         })}
         index={index}
         key={suggestion}
