@@ -100,6 +100,7 @@ class SearchBar extends React.Component {
     }
 
     this.setState({
+      focusedSuggestion: -1,
       value
     });
 
