@@ -15,7 +15,7 @@ class SearchBar extends React.Component {
     }
 
     this.state = {
-      focusedSuggestion: -1,
+      focusedSuggestion: null,
       isFocused: false,
       searchTerm: '',
       value: ''
@@ -42,26 +42,26 @@ class SearchBar extends React.Component {
   }
 
   setFocusedSuggestion(movingDown) {
-    const { focusedSuggestion: focused, searchTerm } = this.state;
+    const { focusedSuggestion: index, searchTerm } = this.state;
     const { suggestions } = this.props;
     const last = suggestions.length - 1;
     let next;
 
     if (movingDown) {
-      next = focused === last ? -1 : focused + 1;
+      next = index === null ? 0 : index + 1;
     } else {
-      next = focused === -1 ? last : focused - 1;
+      next = index === null ? last : index - 1;
     }
 
     this.setState({
-      focusedSuggestion: next,
+      focusedSuggestion: (next > last || next < 0) ? null : next,
       value: suggestions[next] || searchTerm
     });
   }
 
   clearSearch() {
     this.setState({
-      focusedSuggestion: -1,
+      focusedSuggestion: null,
       searchTerm: '',
       value: ''
     });
@@ -100,7 +100,7 @@ class SearchBar extends React.Component {
     }
 
     this.setState({
-      focusedSuggestion: -1,
+      focusedSuggestion: null,
       value
     });
 
@@ -129,7 +129,7 @@ class SearchBar extends React.Component {
 
   handleEscape() {
     this.setState({
-      focusedSuggestion: -1,
+      focusedSuggestion: null,
       searchTerm: ''
     });
 
@@ -145,7 +145,7 @@ class SearchBar extends React.Component {
 
   handleSelection(suggestion) {
     this.setState({
-      focusedSuggestion: -1,
+      focusedSuggestion: null,
       value: suggestion
     });
 

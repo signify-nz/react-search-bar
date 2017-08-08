@@ -45,7 +45,7 @@ class Suggestions extends React.Component {
   }
 
   handleMouseLeave() {
-    this.props.onSuggestionHover(-1);
+    this.props.onSuggestionHover(null);
   }
 
   renderSuggestion(suggestion, index) {
