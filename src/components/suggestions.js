@@ -11,13 +11,16 @@ class Suggestions extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.focusedSuggestion) {
-      this.scrollToSuggestion();
-    }
+    this.scrollToSuggestion();
   }
 
   scrollToSuggestion() {
-    const { list, focusedSuggestion } = this;
+    if (this.props.focusedSuggestion === null) {
+      this.list.scrollTop = 0;
+      return;
+    }
+
+    const { focusedSuggestion, list } = this;
     const listRect = list.getBoundingClientRect();
     const suggestionRect = focusedSuggestion.getBoundingClientRect();
 
