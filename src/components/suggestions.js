@@ -12,23 +12,31 @@ class Suggestions extends React.Component {
 
   componentDidUpdate() {
     if (this.focusedSuggestion) {
-      const { list, focusedSuggestion } = this;
-      const listRect = list.getBoundingClientRect();
-      const suggestionRect = focusedSuggestion.getBoundingClientRect();
-
-      if (suggestionRect.bottom > listRect.bottom) {
-        list.scrollTop = (
-          focusedSuggestion.offsetTop +
-          focusedSuggestion.clientHeight -
-          list.clientHeight
-        );
-      } else if (suggestionRect.top < listRect.top) {
-        list.scrollTop = focusedSuggestion.offsetTop;
-      }
+      this.scrollToSuggestion();
     }
   }
 
-  onMouseMove(event, index) {
+  scrollToSuggestion() {
+    const { list, focusedSuggestion } = this;
+    const listRect = list.getBoundingClientRect();
+    const suggestionRect = focusedSuggestion.getBoundingClientRect();
+
+    if (suggestionRect.bottom > listRect.bottom) {
+      list.scrollTop = (
+        focusedSuggestion.offsetTop +
+        focusedSuggestion.clientHeight -
+        list.clientHeight
+      );
+    } else if (suggestionRect.top < listRect.top) {
+      list.scrollTop = focusedSuggestion.offsetTop;
+    }
+  }
+
+  setFocusedSuggestion(ref) {
+    this.focusedSuggestion = ref && ref.item;
+  }
+
+  handleMouseMove(event, index) {
     const { movementX, movementY } = event.nativeEvent;
 
     if (movementX || movementY) {
@@ -36,12 +44,8 @@ class Suggestions extends React.Component {
     }
   }
 
-  onMouseLeave() {
+  handleMouseLeave() {
     this.props.onSuggestionHover(-1);
-  }
-
-  setFocusedSuggestion(ref) {
-    this.focusedSuggestion = ref && ref.item;
   }
 
   renderSuggestion(suggestion, index) {
@@ -57,7 +61,7 @@ class Suggestions extends React.Component {
         index={index}
         key={suggestion}
         onClick={props.onSelection}
-        onMouseMove={this.onMouseMove}
+        onMouseMove={this.handleMouseMove}
         ref={isFocused && this.setFocusedSuggestion}
         searchTerm={props.searchTerm}
         suggestion={suggestion}
@@ -71,7 +75,7 @@ class Suggestions extends React.Component {
       <ul
         className={this.props.styles.suggestions}
         ref={ref => this.list = ref}
-        onMouseLeave={this.onMouseLeave}
+        onMouseLeave={this.handleMouseLeave}
       >
         {this.props.suggestions.map(this.renderSuggestion)}
       </ul>

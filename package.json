@@ -44,7 +44,6 @@
     "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.5.0",
     "prop-types": "^15.5.10",
-    "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.0",
     "sinon": "^3.0.0",
     "style-loader": "^0.18.2",
