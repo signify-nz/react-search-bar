@@ -1,9 +1,10 @@
-var path = require('path');
+const path = require('path');
+const publicPath = path.resolve(__dirname, 'public');
 
 module.exports = {
-  entry: './demo/demo.js',
+  entry: path.resolve(__dirname, 'demo.js'),
   output: {
-    path: path.resolve(__dirname, './demo'),
+    path: publicPath,
     filename: 'bundle.js'
   },
   module: {
@@ -11,10 +12,7 @@ module.exports = {
       {
         test:  /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['es2015', 'react']
-        }
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
@@ -30,7 +28,7 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, './demo'),
+    contentBase: publicPath,
     noInfo: true
   },
   devtool: 'source-map'

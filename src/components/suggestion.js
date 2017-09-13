@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import autoBind from 'react-autobind';
 
 class Suggestion extends React.Component {

@@ -1,7 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React from 'react';
 import autoBind from 'react-autobind';
+import classNames from 'classnames';
+import { isNil } from 'lodash';
+
 import Suggestion from './suggestion';
 
 class Suggestions extends React.Component {
@@ -11,15 +13,14 @@ class Suggestions extends React.Component {
   }
 
   componentDidUpdate() {
-    this.scrollToSuggestion();
+    if (isNil(this.props.focusedSuggestion)) {
+      this.list.scrollTop = 0;
+    } else {
+      this.scrollToSuggestion();
+    }
   }
 
   scrollToSuggestion() {
-    if (this.props.focusedSuggestion === null) {
-      this.list.scrollTop = 0;
-      return;
-    }
-
     const { focusedSuggestion, list } = this;
     const listRect = list.getBoundingClientRect();
     const suggestionRect = focusedSuggestion.getBoundingClientRect();

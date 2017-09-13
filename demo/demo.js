@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import autoBind from 'react-autobind';
+
 import SearchBar from '../src';
 import styles from './demo.css';
 import words from './words.json';

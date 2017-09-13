@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import autoBind from 'react-autobind';
 import classNames from 'classnames';
-import debounce from 'lodash.debounce';
-import omit from 'lodash.omit';
+import { debounce, inRange, isNil, omit } from 'lodash';
+
 import Suggestions from './suggestions';
 
 class SearchBar extends React.Component {
@@ -48,13 +48,13 @@ class SearchBar extends React.Component {
     let next;
 
     if (movingDown) {
-      next = index === null ? 0 : index + 1;
+      next = isNil(index) ? 0 : index + 1;
     } else {
-      next = index === null ? last : index - 1;
+      next = isNil(index) ? last : index - 1;
     }
 
     this.setState({
-      focusedSuggestion: (next > last || next < 0) ? null : next,
+      focusedSuggestion: inRange(next, 0, suggestions.length) ? next : null,
       value: suggestions[next] || searchTerm
     });
   }
