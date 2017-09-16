@@ -1,32 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import SearchBar from '../../src';
-import Suggestions from '../../src/components/suggestions';
+import { mount, shallow } from 'enzyme';
+import { noop } from 'lodash';
+
+import SearchBar from 'components/search-bar';
+import Suggestions from 'components/suggestions';
 
 describe('<SearchBar />', () => {
   describe('should throw exceptions when missing required props', () => {
     // Suppress propType warnings
-    before(() => {
-      sinon.stub(console, 'error');
+    beforeAll(() => {
+      console.error = jest.fn();
     });
 
-    after(() => {
-      console.error.restore();
+    afterAll(() => {
+      console.error.mockRestore();
     });
 
     it('onChange', () => {
       const component = <SearchBar />;
-      expect(() => shallow(component)).to.throw();
+      expect(() => shallow(component)).toThrow();
     });
 
     it('onClear', () => {
       const component = <SearchBar onChange={noop} />;
-      expect(() => shallow(component)).to.throw();
+      expect(() => shallow(component)).toThrow();
     });
 
     it('suggestions', () => {
       const component = <SearchBar onChange={noop} onClear={noop} />;
-      expect(() => shallow(component)).to.throw();
+      expect(() => shallow(component)).toThrow();
     });
 
     it('onSearch when renderSearchButton is true', () => {
@@ -39,14 +41,14 @@ describe('<SearchBar />', () => {
         />
       );
 
-      expect(() => shallow(component)).to.throw();
+      expect(() => shallow(component)).toThrow();
     });
   });
 
   it('should render suggestions', () => {
     const suggestions = ['macbook air', 'macbook pro'];
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <SearchBar
         onChange={noop}
         onClear={noop}
@@ -58,6 +60,9 @@ describe('<SearchBar />', () => {
       value: 'mac'
     });
 
-    expect(wrapper.find(Suggestions).prop('suggestions')).to.equal(suggestions);
+    const node = wrapper.find(Suggestions);
+
+    expect(node.prop('suggestions')).toEqual(suggestions);
+    expect(node.find('Suggestion')).toHaveLength(2);
   });
 });

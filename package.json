@@ -21,11 +21,13 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir lib && webpack --config=demo/webpack.config.js -p",
+    "build:lib": "babel src --out-dir lib",
+    "build:demo": "webpack --config=demo/webpack.config.js -p",
+    "build": "concurrently 'npm run build:lib' && 'npm run build:demo'",
     "check": "npm run lint && npm run test",
     "lint": "eslint src/**",
     "start": "webpack-dev-server --config=demo/webpack.config.js --open",
-    "test": "mocha --require babel-register --recursive"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -43,11 +45,10 @@
     "enzyme": "^2.7.1",
     "eslint": "^4.4.0",
     "eslint-plugin-react": "^7.1.0",
-    "mocha": "^3.5.0",
+    "jest": "^21.1.0",
     "prop-types": "^15.5.10",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
-    "sinon": "^3.0.0",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.7",
     "webpack": "^3.6.0",
@@ -61,5 +62,10 @@
     "lodash-es": "^4.17.4",
     "react": "^15.4.0",
     "react-autobind": "^1.0.6"
+  },
+  "jest": {
+    "modulePaths": [
+      "./src"
+    ]
   }
 }
