@@ -25,7 +25,7 @@ class App extends React.Component {
 
   handleChange(input) {
     this.setState({
-      suggestions: words.filter(word => word.startsWith(input) && word)
+      suggestions: words.filter(word => word.startsWith(input))
     });
   }
 
