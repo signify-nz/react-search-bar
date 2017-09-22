@@ -13,9 +13,7 @@ class Suggestions extends React.Component {
   }
 
   componentDidUpdate() {
-    if (isNil(this.props.focusedSuggestion)) {
-      this.list.scrollTop = 0;
-    } else {
+    if (!isNil(this.props.focusedSuggestion)) {
       this.scrollToSuggestion();
     }
   }
