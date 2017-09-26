@@ -45,6 +45,7 @@ class SearchBar extends React.Component {
     const { focusedSuggestion: index, searchTerm } = this.state;
     const { suggestions } = this.props;
     const last = suggestions.length - 1;
+
     let next;
 
     if (movingDown) {
@@ -117,6 +118,10 @@ class SearchBar extends React.Component {
         this.setFocusedSuggestion(event.key === 'ArrowDown');
         break;
 
+      case 'Backspace':
+        this.handleBackspace();
+        break;
+
       case 'Enter':
         this.handleSearch();
         break;
@@ -125,6 +130,17 @@ class SearchBar extends React.Component {
         this.handleEscape();
         break;
     }
+  }
+
+  handleBackspace() {
+    this.setState({
+      focusedSuggestion: null
+    });
+  }
+
+  handleSearch() {
+    this.props.onClear();
+    this.props.onSearch(this.state.value.trim());
   }
 
   handleEscape() {
@@ -156,43 +172,13 @@ class SearchBar extends React.Component {
     }
   }
 
-  handleSearch() {
-    this.props.onClear();
-    this.props.onSearch(this.state.value.trim());
-  }
-
-  renderClearButton() {
-    return (
-      <button
-        className={this.props.styles.clearButton}
-        onClick={this.clearSearch}
-      />
-    );
-  }
-
-  renderSearchButton() {
-    return (
-      <button
-        className={this.props.styles.submitButton}
-        onClick={this.handleSearch}
-      />
-    )
-  }
-
   render() {
     const { props, state } = this;
     const { renderSearchButton, styles } = props;
     const attributes = omit(props, Object.keys(SearchBar.propTypes));
 
-    const renderClearButton = (
-      state.value &&
-      props.renderClearButton
-    );
-
-    const renderSuggestions = (
-      state.value &&
-      props.suggestions.length > 0
-    );
+    const renderClearButton = state.value && props.renderClearButton;
+    const renderSuggestions = state.value && props.suggestions.length > 0;
 
     return (
       <div
@@ -217,8 +203,18 @@ class SearchBar extends React.Component {
             onBlur={this.toggleFocus}
             onKeyDown={props.suggestions && this.handleKeyDown}
           />
-          {renderClearButton && this.renderClearButton()}
-          {renderSearchButton && this.renderSearchButton()}
+          {renderClearButton && (
+            <button
+              className={styles.clearButton}
+              onClick={this.clearSearch}
+            />
+          )}
+          {renderSearchButton && (
+            <button
+              className={styles.submitButton}
+              onClick={this.handleSearch}
+            />
+          )}
         </div>
         {renderSuggestions && (
           <Suggestions
