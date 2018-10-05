@@ -195,6 +195,7 @@ class SearchBar extends React.Component {
           <input
             {...attributes}
             className={styles.input}
+            aria-labelledby="Enter your question here"
             type="text"
             ref={ref => this.input = ref}
             value={state.value}
