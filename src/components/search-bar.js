@@ -210,7 +210,11 @@ class SearchBar extends React.Component {
             />
           )}
           {renderSearchButton && (
-            <button
+            <input
+              type="submit"
+              value="go"
+              title="click to start search"
+              aria-labelledby="Submit / search button"
               className={styles.submitButton}
               onClick={this.handleSearch}
             />
