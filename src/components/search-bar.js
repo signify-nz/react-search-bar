@@ -195,7 +195,7 @@ class SearchBar extends React.Component {
           <input
             {...attributes}
             className={styles.input}
-            aria-labelledby="Enter your question here"
+            aria-label="Enter your question here"
             type="text"
             ref={ref => this.input = ref}
             value={state.value}
@@ -213,7 +213,7 @@ class SearchBar extends React.Component {
           {renderSearchButton && (
             <button
               title="click to start search"
-              aria-labelledby="Submit / search button"
+              aria-label="Submit / search button"
               className={styles.submitButton}
               onClick={this.handleSearch}
             />
